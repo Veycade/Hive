@@ -1,11 +1,8 @@
-const electron = require('electron');
-const app = electron.app;
+const {ipcRenderer} = require('electron');
 let $ = require('jquery');
-const { autoUpdater } = require('electron-updater');
 
-
+var canMoveOn = false;
 function pingURL() {
-  
     // The custom URL entered by user
     var URL = $("#url").val();
     var timer = 10;
@@ -26,18 +23,32 @@ function pingURL() {
     
       // Defines the response to be made
       // for certain status codes
+      
       statusCode: {
         200: function (response) {
-          document.getElementById('noInternet').innerText = 'CHECKING FOR UPDATES';
-          autoUpdater.checkForUpdates();
-            i=0;
-            setInterval(() => {
+
+
+          ipcRenderer.invoke('updates', 'status').then((result) => {
+            document.getElementById('noInternet').innerText = result;
+          })
+          setInterval(() => {
+            ipcRenderer.invoke('updates', 'status').then((result) => {
+              document.getElementById('noInternet').innerText = result;
+              if(result == 'UPDATE NOT AVAILABLE'){
+                if(!canMoveOn){
+                  i=0;
+                setInterval(() => {
                 i++;
                 $('.progress-bar').css('width', i+'%').attr('aria-valuenow', i);
                 if(i >= 300){
-                    //window.location.href = '../HTML/index.html';
+                    window.location.href = '../HTML/index.html';
                 }
-            }, 20);
+                  }, 20);
+                  canMoveOn = true;
+                }
+              }
+            })
+          }, 500);
         },
         400: function (response) {
           setInterval(() => {

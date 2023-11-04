@@ -1,17 +1,17 @@
 {
   "name": "hive",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Web based GUI using electron front-end and c++ backend to license paid game exploits.",
   "main": "main.js",
   "build": {
     "appId": "io.hive.loader",
     "icon": "icon.png",
     "productName": "Hive",
-    "artifactName": "${productName}.${ext}",
+    "artifactName": "${productName} v${version}.${ext}",
     "win": {
-      "publish": [
-        "github"
-      ],
+      "publish": [{
+        "provider": "github"
+      }],
       "target": [
         {
           "target": "nsis",
