@@ -67,6 +67,27 @@ div.frame{
     font-weight: 100;
 }
 
+
+
+div.dropdown-menu {
+  color: #0303038c;
+  color: rgba(117, 19, 93, 0.73);
+  background-color: #333;
+  color: white;
+  box-shadow: 5px 5px 5px rgb(0, 0, 0);
+}
+
+ul li a.dropdown-item {
+  color: white;
+  background-color: #333;
+}
+
+ul li a.dropdown-item:hover {
+  color: white;
+  background-color: #181818;
+}
+
+
 div.content {
     background-color: #222;
     text-align: center;

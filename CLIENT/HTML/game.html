@@ -26,6 +26,7 @@
     <!--CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="../CSS/game.css"/>
   </head>
   <body onload="onLoad()" style="background-color: #222;">
     <div class="container-fluid frame">
@@ -42,19 +43,6 @@
     </div>
 
     <div id="particles-js"></div>
-    
-    <!--DONT TOUCH-->
-    <script type="text/javascript" language="javascript">  
-        var versionUpdate = (new Date()).getTime();  
-        var script1 = document.createElement("link");   
-        script1.rel = "stylesheet";
-        script1.href = "../CSS/game.css?v=" + versionUpdate;  
-        document.head.appendChild(script1);  
-    </script> 
-    <!--DONT TOUCH-->
-
-    <!--BELOW ME IS ALL WEBSITE DATA TO DISPLAY-->
-
 
     <nav class="navbar navbar-expand-lg bg-hive">
         <div class="container">
@@ -77,20 +65,28 @@
       </nav>
 
 
-
-
-      <div id="heroImage" class="container-fluid d-flex flex-wrap justify-content-start m-0 p-0" style="min-width: 100vw; max-width: 100vw; min-height: 25vh; max-height: 25vh; object-fit: cover; background-repeat: no-repeat; background-size: cover;">
+      <input type="text" name="codeEntryField1" id="codeEntryField1" class="codeEntryField regField required" aria-required="true" data-gtm-form-interact-field-id="1">
 
 
 
 
-        <h1 id="gameName" class="d-flex flex-wrap m-0 mt-auto" style="background-color: #222; padding: 15px; border-top-right-radius: 10px;"></h1>
+      <div id="heroImage" class="container-fluid m-0 p-0 d-flex flex-wrap justify-content-center align-items-center" style="min-width: 100vw; max-width: 100vw; min-height: 25vh; max-height: 25vh; object-fit: cover; background-repeat: no-repeat; background-size: cover;">
+
+        <img id="gLogo" width="440px" height="150px">
       </div>
   
       <div class="container-fluid d-flex flex-wrap justify-content-center" style="background-color: #222;">
         <div class="container-fluid d-flex flex-wrap justify-content-end pt-3" style="background-color: #222;">
-          <button onclick="launchGame()" class="btn btn-hive text-light" style="font-weight: 600; margin-right: 15px;"><i class="fa-solid fa-play"></i> Launch</button>
-          <button onclick="injectGame()" class="btn btn-hive text-light" style="font-weight: 600;"><i class="fa-solid fa-virus"></i> Launch & Inject</button>
+
+
+          <div class="btn-group align-text-center">
+            <button type="button" id="injectGame" onclick="injectGame()" class="btn btn-hive text-light" style="font-weight: 600;"><img src="../IMG/logoClear.png" width="50rem"> Launch & Inject</button>
+            <button type="button" class="btn btn-hive dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            </button>
+            <div class="dropdown-menu">
+              <button class="btn btn-hive text-light m-auto" style="font-weight: 600;"><i class="fa-brands fa-discord"></i> Login</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -106,13 +102,7 @@
     <!--DONT TOUCH-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script type="text/javascript" language="javascript">  
-        var versionUpdate = (new Date()).getTime();  
-        var script = document.createElement("script");  
-        script.type = "text/javascript";  
-        script.src = "../JS/game.js?v=" + versionUpdate;  
-        document.body.appendChild(script);  
-    </script> 
+    <script src="../JS/game.js"></script>
     <!--DONT TOUCH-->
   </body>
 </html>

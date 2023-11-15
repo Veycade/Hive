@@ -34,7 +34,7 @@ function pingURL() {
           setInterval(() => {
             ipcRenderer.invoke('updates', 'status').then((result) => {
               document.getElementById('noInternet').innerText = result;
-              if(result == 'UPDATE NOT AVAILABLE'){
+              if(result == 'UPDATE NOT AVAILABLE' || null){
                 if(!canMoveOn){
                   i=0;
                 setInterval(() => {

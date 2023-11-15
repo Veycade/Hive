@@ -11,6 +11,7 @@ const createWindow = () => {
     show: false,
     webPreferences: {
         nodeIntegration: true,
+        nodeIntegrationInWorker: true,
         contextIsolation: false,
         devTools: true,
         sandbox: false
@@ -33,7 +34,13 @@ app.whenReady().then(() => {
 
   ipcMain.handle('updates', async (event, someArgument) => {
     if(!updateCheck){
-      autoUpdater.checkForUpdates();
+      autoUpdater.checkForUpdatesAndNotify().then((res) => {
+        if(res != null){
+          return;
+        }else{
+          updateMsg = 'UPDATE NOT AVAILABLE';
+        }
+      });
       autoUpdater.autoDownload = true;
       autoUpdater.autoInstallOnAppQuit = true;
       autoUpdater.autoRunAppAfterInstall = true;

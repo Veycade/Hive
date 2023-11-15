@@ -7,6 +7,18 @@ const backups = require('../BACKUPS/backupIds.json');
 const { getGamePath, getSteamPath } = require('steam-game-path');
 
 async function onLoad() {
+
+
+
+
+  //CHECK TO SEE IF EXE EXISTS THEN LIST GAMES
+
+
+
+
+
+
+
   let steamPath = getSteamPath();
   let appList = await axios.get('http://api.steampowered.com/ISteamApps/GetAppList/v0002/?key=STEAMKEY&format=json');
   const actualAppList = Array.from(appList.data.applist.apps);
@@ -34,7 +46,7 @@ async function onLoad() {
       document.getElementById('gList').innerHTML += `
       <li class="list-group-item animate__animated animate__fadeInUp">
         <a href="game.html?id=${game}" class="btn btn-transparent">
-          <div class="card card-custom" id="${gameobj[0].name}" style="background-image: url('${steamPath.substring(0, 23)}/Steam/appcache/librarycache/${game}_library_600x900.jpg');"></div>
+          <div class="card card-custom" id="${gameobj[0].name}" style="background-image: url('https://steamcdn-a.akamaihd.net/steam/apps/${game}/header.jpg');"></div>
         </a>
       </li>
       `;

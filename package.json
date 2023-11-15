@@ -1,6 +1,6 @@
 {
   "name": "hive",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Web based GUI using electron front-end and c++ backend to license paid game exploits.",
   "main": "main.js",
   "build": {
@@ -9,9 +9,11 @@
     "productName": "Hive",
     "artifactName": "${productName} v${version}.${ext}",
     "win": {
-      "publish": [{
-        "provider": "github"
-      }],
+      "publish": [
+        {
+          "provider": "github"
+        }
+      ],
       "target": [
         {
           "target": "nsis",
@@ -29,7 +31,8 @@
     "distmac": "electron-builder -m",
     "distwin32": "electron-builder --ia32",
     "distwin64": "electron-builder --x64",
-    "distlin": "electron-builder -l"
+    "distlin": "electron-builder -l",
+    "tracer": "electron . --trace-deprecation ..."
   },
   "author": "Veycade, Tacillo",
   "license": "ISC",

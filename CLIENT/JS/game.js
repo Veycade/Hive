@@ -1,27 +1,23 @@
 const { BrowserWindow } = require('@electron/remote');
 const $ = require('../../node_modules/jquery');
-const { readdir, readFileSync } = require('fs');
-const VDF = require('vdfplus');
 const axios = require('axios');
 const backups = require('../BACKUPS/backupIds.json');
-const { getGamePath, getSteamPath } = require('steam-game-path');
 const cp = require('child_process');
+const SteamUser = require('steam-user');
 
 let gameID = document.URL.split('?')[1].substring(3);
-
+let gameName = '';
 async function onLoad() {
-  let steamPath = getSteamPath();
-  document.getElementById('heroImage').style.backgroundImage = `url('${steamPath.substring(0, 23)}/Steam/appcache/librarycache/${gameID}_library_hero.jpg')`;
+  document.getElementById('gLogo').src = `https://steamcdn-a.akamaihd.net/steam/apps/${gameID}/logo.png`
+  document.getElementById('heroImage').style.backgroundImage = `linear-gradient(to bottom, #222, rgba(0, 0, 0, 0), #222), url('https://steamcdn-a.akamaihd.net/steam/apps/${gameID}/library_hero.jpg')`;
   let appList = await axios.get('http://api.steampowered.com/ISteamApps/GetAppList/v0002/?key=STEAMKEY&format=json');
   const actualAppList = Array.from(appList.data.applist.apps);
   var gameobj = actualAppList.filter(app => app.appid == gameID);
   if(gameobj[0] == undefined){
     gameobj = backups.applist.apps.filter(app => app.appid == gameID);
-    let gameName = gameobj[0].name;
-    document.getElementById('gameName').innerText = `${gameName.toUpperCase()}`;
+    gameName = gameobj[0].name;
   }else{
-    let gameName = gameobj[0].name;
-    document.getElementById('gameName').innerText = `${gameName.toUpperCase()}`;
+    gameName = gameobj[0].name;
   }
 
   var window = BrowserWindow.getFocusedWindow();
@@ -34,17 +30,38 @@ async function onLoad() {
 }
 
 async function launchGame() {
-  const subProc = cp.exec(`cmd /c start steam://rungameid/${gameID}`);
+  let subProc = cp.exec(`cmd /c start steam://rungameid/${gameID}`);
 }
 
 async function injectGame() {
-  console.log('Inject');
+
+  cp.exec('tasklist', (err, stdout, stderr) => {
+    let client = new SteamUser();
+  client.logOn();
+
+  let subProc = cp.exec(`cmd /c start steam://rungameid/${gameID}`);
+
+client.on('loggedOn', async (details) => {
+	let result = await client.getProductInfo([Number(gameID), Number(gameID)], [], true);
+	let val = Object.entries(result.apps[gameID].appinfo.config.launch);
+  val.forEach((value) => {
+    console.log(String(value[1].executable).split('\\').slice(-1));
+    console.log(stdout.includes(String(value[1].executable).split('\\').slice(-1)));
+  });
+	client.logOff();
+});
+});
+
+
+
+
+
+
+
+
+  //const subProc = cp.exec('cmd cd .. && cd RESERVED && cmd start vmm.exe');
+  console.log('ran');
 }
-
-
-
-
-
 
 
 
